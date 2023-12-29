@@ -15,7 +15,7 @@
     
     font-family: Sans-Serif;
     
-    pointer-events: none;
+    pointer-events: auto;
     touch-action: none;
     user-select: none;
     -moz-user-modify: read-only;
