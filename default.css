@@ -11,6 +11,8 @@
     flex-flow: column nowrap; grid-auto-flow: row;
     place-content: center; place-items: center;
 
+    white-space: pre;
+    
     font-family: Sans-Serif;
     
     pointer-events: none;
