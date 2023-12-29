@@ -4,6 +4,7 @@ export default class CommandPalette extends HTMLElement {
 	#rootElement
 	#modalElement
 	#searchElement
+	#resultsElement
 	#backdropElement
 	#currResult
 
@@ -12,39 +13,52 @@ export default class CommandPalette extends HTMLElement {
 	open() {
 		this.#modalElement.showPopover()
 		this.#searchElement.focus()
-		this.#searchElement.value = this.#query
+		this.#searchElement.textContent = this.#query
 		}
 
 	close() {
-		this.#query = ""
 		this.#searchElement.blur()
 		this.#modalElement.hidePopover()
 		}
 
-	add( command ) {}
+	focusNext() {
 
-	remove( command ) {}
+		// this.querySelector(" :scope > *:not(palette-hidden).palette-selected ")
 
-	focusNext() {}
+		}
 
 	focusPrev() {}
 
-	update( query ) {}
+	update( query ) {
+		this.#query = query
 
-	submit( target = this.#currResult ) {}
+		for( let command of this.children ) { 
+			if( command.getAttribute("name").startsWith( query.trim() ) )  
+				command.classList.remove("palette-hidden")
+			else
+				command.classList.add("palette-hidden")
+			}
+
+		}
+
+	submit( target = this.#currResult ) {
+
+		target?.click()
+
+		}
 
 	constructor() {
 		super()
 
-		let shadow = this.attachShadow({ mode: "closed", delegatesFocus: true, slotAssignments: "manual" })
+		let shadow = this.attachShadow({ mode: "closed", delegatesFocus: true, slotAssignments: "named" })
 		shadow.append( CommandPalette.content.cloneNode(true) )
 		shadow.adoptedStyleSheets = [ CommandPalette.styles ]
 
-		this.#rootElement = shadow.getElementById("root")		
+		this.#rootElement = shadow.getElementById("root")
 		this.#modalElement = shadow.getElementById("modal")
-		this.#searchElement = shadow.getElementById("search")		
-		this.#searchElement.beforeInput = console.log
-		this.#backdropElement = shadow.getElementById("backdrop")	
+		this.#searchElement = shadow.getElementById("search")
+		this.#resultsElement = shadow.getElementById("results")
+		this.#backdropElement = shadow.getElementById("backdrop")
 
 		// this.#rootElement.addEventListener( "focusin", event => this.open(), {
 		// 	capture: true,
@@ -86,7 +100,7 @@ export default class CommandPalette extends HTMLElement {
 			} )
 
 		this.#rootElement.addEventListener( "input", event => {
-			this.update( this.#searchElement.value )
+			this.update( this.#searchElement.textContent )
 			}, {
 			capture: true,
 			passive: false,
@@ -124,19 +138,27 @@ export default class CommandPalette extends HTMLElement {
 	}
 
 
-
 function getHTML() {
 	let template = document.createElement("template")
 
-	template.innerHTML = `<elem- id=root tabindex=0 >	
-		<elem- id=modal popover=manual >
+	template.innerHTML = `
+		<link rel=stylesheet href="https://nahejl.github.io/Web-Components/default.css" />
+		<elem- id=root tabindex=0 >	
+			<elem- id=modal popover=manual >
 
-			<elem- id=backdrop ></elem->
+				<elem- id=backdrop ></elem->
 
-			<input id=search value=SEARCH />
+				<elem- id=palette >
+					<elem- id=bar >
+						<elem- id=icon >⌕</elem->
+						<elem- id=search contenteditable=plaintext-only ></elem->
+						</elem->
+					<slot id=results ></slot>
+					</elem->
 
+				</elem->
 			</elem->
-		</elem->`
+		`
 
 	return template.content
 	}
@@ -147,6 +169,79 @@ function getCSS() {
 	let sheet = new CSSStyleSheet
 
 	sheet.replace(`
+
+		#root {
+			display: contents
+			}
+
+		#modal:not(:popover-open) {
+			display: none;
+			}
+
+		#modal:popover-open {
+			position: fixed; inset: 0px;
+			width: 100vw; height: 100vh;
+			display: grid; place-content: start center;
+			padding: 8px;
+			}
+
+		#backdrop {
+			z-index: 1;
+			position: fixed; inset: 0px;
+			width: 100vw; height: 100vh; 
+			background: #1112;
+			backdrop-filter: blur(2px);
+			pointer-events: auto;
+			}
+
+		#palette {
+			z-index: 2;
+			grid-area: 1/1;
+			width: 600px;
+			display: flex; flex-flow: column nowrap;
+			border-radius: 6px; 
+			}
+
+		#bar {
+			width: 100%;
+			background: #123; color: #EEE;
+			display: flex; flex-flow: row nowrap;
+			place-content: start;
+			}
+
+		#icon {
+			width: 40px; height: 100%;
+			display: grid;
+			font-size: 30px;
+			line-height: 1;
+			opacity: 0.8;
+			}
+
+		#search {
+			flex-grow: 1;
+			padding: 10px 12px 10px 0px;
+	    -moz-user-modify: read-write;
+	    -webkit-user-modify: read-write;
+			}
+
+		#search:empty::after {
+			content: "Query";
+			opacity: .25;
+			pointer-events: none;
+			}
+
+		#results {
+			display: flex; flex-flow: column nowrap;
+			place-items: start;
+			width: 100%;
+			background: #789; color: #EEE;
+			padding-block: 5px;
+			}
+
+		#results::slotted(*) {
+			padding-inline: 10px;
+			}
+
 		`)
 
 	return sheet
