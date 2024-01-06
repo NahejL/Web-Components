@@ -4,6 +4,8 @@
   :where( :root, :host, :not(:defined), .default ) {
     all: unset;
 
+    position: relative;
+    
     box-sizing: border-box;
     width: min-content;
     height: min-content;
