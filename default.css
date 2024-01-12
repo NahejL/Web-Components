@@ -14,7 +14,7 @@
 
     display: inline-block;
     
-    flex-flow: column nowrap; grid: auto-flow min-content / min-content;
+    flex-flow: column nowrap; grid: auto-flow auto / auto;
     place-content: center; place-items: center;
 
     overflow: hidden;
