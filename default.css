@@ -10,7 +10,7 @@
     width: min-content;
     height: min-content;
 
-    flex: 0 0 auto; place-self: center
+    flex: 0 0 auto; place-self: center;
 
     display: inline-block;
     
