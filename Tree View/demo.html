@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <script type=module src="./TreeView.mjs" ></script>
+  <link href="./TreeView.css" rel="stylesheet" type="text/css" />
+
+  <style>
+
+    .spacer {
+      flex: 1 1 100%;
+      }
+    
+    </style>
+  
+  <title>replit</title>
+  </head>
+
+<body style="
+  width: 100vw; height: 100vh;
+  margin: 0px;
+  " >
+
+  <t- class=tree id=tree >
+    <l- class=tree_leaf >
+      <e- class=tree_leaf_stem ></e->
+      <e- class=tree_leaf_contents >
+        <t- class=title >Tree</t->
+        <s- class=spacer ></s->
+        <t- class=tree_leaf_toggle></t->
+        </e->
+      </l->
+
+    <l- class=tree_leaf >
+      <e- class=tree_leaf_stem ></e->
+      <e- class=tree_leaf_contents >Leaf</e->
+      </l->
+
+    <b- class=tree_branch id=first >
+      <l- class=tree_leaf >
+        <e- class=tree_leaf_stem ></e->
+        <e- class=tree_leaf_contents >
+          <t- class=title >Branch</t->
+          <s- class=spacer ></s->
+          <t- class=tree_leaf_toggle></t->
+          </e->
+        </l->
+
+      <b- class="tree_branch" id=second >
+        <l- class=tree_leaf >
+          <e- class=tree_leaf_stem ></e->
+          <e- class=tree_leaf_contents >
+            <t- class=title >Branch</t->
+            <s- class=spacer ></s->
+            <t- class=tree_leaf_toggle></t->
+            </e->
+          </l->
+
+        <l- class=tree_leaf >
+          <e- class=tree_leaf_stem ></e->
+          <e- class=tree_leaf_contents >Leaf</e->
+          </l->
+
+        <l- class=tree_leaf >
+          <e- class=tree_leaf_stem ></e->
+          <e- class=tree_leaf_contents >Leaf</e->
+          </l->
+
+        <l- class=tree_leaf >
+          <e- class=tree_leaf_stem ></e->
+          <e- class=tree_leaf_contents >Leaf</e->
+          </l->
+
+        </b->
+
+      <l- class=tree_leaf >
+        <e- class=tree_leaf_stem ></e->
+        <e- class=tree_leaf_contents >Leaf</e->
+        </l->
+
+      <l- class=tree_leaf >
+        <e- class=tree_leaf_stem ></e->
+        <e- class=tree_leaf_contents >Leaf</e->
+        </l->
+      
+      </b->
+
+    <l- class=tree_leaf >
+      <e- class=tree_leaf_stem ></e->
+      <e- class=tree_leaf_contents >Leaf</e->
+      </l->
+
+    <l- class=tree_leaf >
+      <e- class=tree_leaf_stem ></e->
+      <e- class=tree_leaf_contents >Leaf</e->
+      </l->
+    
+    </t->
+
+  </body>
+  </html>
