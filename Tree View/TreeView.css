@@ -1,0 +1,148 @@
+
+@import "https://NahejL.github.io/Web-Components/default.css";
+
+/* Expected structure:
+
+  .tree 
+    1 .tree_leaf
+    * (
+      .tree_branch .tree_leaf
+      .tree_leaf
+      )
+
+  .tree_leaf
+    1 .tree_leaf_stem
+    1 .tree_leaf_contents
+
+  // optional button for clarity
+  (.tree, .tree_branch) > .tree_leaf:first-child
+    + tree_leaf_toggle
+
+  // parent to child child branches alternate a-class
+  (.tree, .tree_branch) > .tree_branch
+    :is(.a)
+
+  .tree_branch.a > tree_branch
+    :is(:not(.a))
+
+  */
+
+@layer Tree {
+
+  :has( > .tree) {
+    --debug-background: orange;
+    }
+  
+  .tree {
+    display: flex; flex-flow: column nowrap;
+    place-content: start; place-items: stretch;
+    width: 100%; height: 100%;
+    gap: 4px;
+    --padding: 4px;
+    --padding-a: var(--padding);
+    --padding-b: var(--padding);
+    }
+  
+  .tree_branch {
+    display: contents;
+    }
+  
+  .tree_branch.a {
+    --padding-a: calc( var(--padding-b) + 8px );
+    --padding: var(--padding-a);
+    }
+  
+  .tree_branch:not(.a) {
+    --padding-b: calc( var(--padding-a) + 8px );
+    --padding: var(--padding-b);
+    }
+
+  :is( .tree, .tree_branch ).tree_branch_closed > :is( .tree_branch, .tree_leaf:not(:first-child) ) {
+    display: none;
+    }
+  
+  .tree_leaf {
+    flex: 0 0 auto; place-self: stretch;
+    display: flex; flex-flow: row nowrap;
+    place-content: start; place-items: center;
+    width: 100%;
+    pointer-events: auto;
+    }
+
+  .tree_leaf:hover {
+    background: #1111;
+    }
+
+  .tree_leaf:first-child {
+    }
+  
+  .tree_leaf_stem {
+    flex: 0 0 auto; place-self: start;
+    display: block;
+    height: 100%; 
+    padding-left: var(--padding);
+    --debug-background: blue;
+    }
+
+  .tree_leaf_stem::after {
+    place-self: stretch;
+    content: "\00a0"; white-space: pre;
+    display: block;
+    height: 100%;
+    border-left: 4px solid #1112;
+    border-bottom-left-radius: 4px;
+    padding-left: 4px;
+    }
+
+  .tree_leaf:hover .tree_leaf_stem::after {
+    border-left: 4px solid #1110;
+    }
+
+  .tree > .tree_leaf:first-child .tree_leaf_stem::after {
+    content: "";
+    display: none;
+    }
+  
+  .tree_leaf:first-child .tree_leaf_stem {
+    padding-left: calc( var(--padding) - 8px );
+    }
+  
+  .tree > .tree_leaf:first-child .tree_leaf_stem {
+    --padding: 0px;
+    padding-left: 4px;
+    }
+  
+  .tree_leaf_contents {
+    display: contents;
+    }
+
+  .tree_leaf:first-child .tree_leaf_contents {
+    font-weight: bold;
+    color: #111C;
+    --debug-background: yellow;
+    }
+
+  .tree > .tree_leaf:first-child .tree_leaf_contents {
+    font-size: 1.2em;
+    color: #111A;
+    }
+
+  .tree_leaf_toggle {
+    display: block;
+    padding: 4px;
+    border-radius: 6px;
+    background: #1111;
+    }
+
+  .tree_leaf_toggle::before {
+    content: "⧨";"
+    }
+
+  :is( .tree, .tree_branch ).tree_branch_closed .tree_leaf_toggle::before {
+    content: "◭";
+    transform: scale(1.3);
+    }
+
+  }
+
+  
