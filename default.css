@@ -36,7 +36,7 @@
     width: 100vw; height: 100vh;
 
     display: grid;
-    grid: auto-flow max-content / max-content;
+    grid: auto-flow fit-content / fit-content;
     place-content: stretch; place-items: stretch;
     
     }
