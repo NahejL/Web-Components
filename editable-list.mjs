@@ -1,8 +1,0 @@
-
-class EditableList extends HTMLElement {
-  
-
-
-  
-
-  }

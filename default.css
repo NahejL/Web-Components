@@ -10,9 +10,11 @@
     width: min-content;
     height: min-content;
 
-    flex: 0 0 auto;
+    flex: 0 0 auto; place-self: center
+
+    display: inline-block;
     
-    flex-flow: column nowrap; grid-auto-flow: row;
+    flex-flow: column nowrap; grid: auto-flow min-content / min-content;
     place-content: center; place-items: center;
 
     overflow: hidden;
@@ -27,6 +29,20 @@
     -moz-user-modify: read-only;
     -webkit-user-modify: read-only;
     
+    }
+
+  :root {
+
+    width: 100vw; height: 100vh;
+
+    display: grid;
+    grid: auto-flow max-content / max-content;
+    place-content: stretch; place-items: stretch;
+    
+    }
+
+  *::before, *::after, *::marker {
+    white-space: pre;
     }
 
   }
