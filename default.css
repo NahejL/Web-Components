@@ -45,4 +45,8 @@
     white-space: pre;
     }
 
+  .spacer {
+    flex: 1 1 auto;
+    }
+
   }
