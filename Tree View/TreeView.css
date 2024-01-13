@@ -130,6 +130,9 @@
     display: block;
     padding: 4px;
     border-radius: 6px;
+    }
+
+  .tree_leaf:hover .tree_leaf_toggle {
     background: #1111;
     }
 
