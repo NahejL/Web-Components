@@ -57,7 +57,7 @@ class TreeHandler {
       }
     }
 
-  constructor( observer ) {
+  constructor() {
     addEventListener( "click", this )
     addEventListener( "dblclick", this )
     addEventListener( "contextmenu", this )

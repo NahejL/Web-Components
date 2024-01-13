@@ -1,0 +1,101 @@
+
+/* Expected structure:  
+
+	*/
+
+@layer Graph {
+
+	:has([graph]) {
+		width: 100%; height: 100%;
+		place-content: stretch;
+		}
+
+	[graph] {
+		width: 100%; height: 100%;
+		display: grid; place-content: center;
+		--hover-index: 4;
+		--node-index: 3;
+		--edge-index: 2;
+		--shadow-index: 1;
+		}
+
+	[graph_world] {
+		grid-area: 1/1;
+		width: 0px; height: 0px;
+		overflow: visible;
+		display: grid;
+		transform: translate( var(--x-px), var(--y-px) );
+		}
+
+	[graph_node], [graph_edge_anchor] {
+		grid-area: 1/1; 
+		transform: translate( var(--x-px), var(--y-px) );
+		}
+
+	[graph_world], [graph_node], [graph_edge_anchor] {
+		--x: 0; --y: 0;
+		--x-px: calc( var(--x) * 1px );
+		--y-px: calc( var(--y) * 1px );
+		}
+
+	[graph_svg] {
+		grid-area: 1/1;
+		width: 1px; height: 1px;
+		overflow: visible;
+		stroke-width: 4px;
+		stroke: blue;
+		stroke-linecap: round;
+		}
+
+	[graph_node] {
+		display: flex; flex-flow: column nowrap;
+		gap: 4px;
+		}
+
+	[graph_node_handle] {
+		border-radius: 6px 6px 0 0;
+		padding: 4px 8px;
+		background: orange;
+		}
+
+	[graph_node_input] {
+		width: 18px; height: 18px;
+		border-radius: 50% 25% 25% 50%;
+		background: orange;
+		}
+
+	[graph_node_output] {
+		width: 18px; height: 18px;
+		border-radius: 25% 50% 50% 25%;
+		background: orange;
+		}
+
+	[graph_edge] {
+		display: contents;
+		}
+
+	[graph_edge_tip] {
+		visibility: hidden;
+		}
+
+	[graph_edge_anchor] {
+		width: 18px; height: 18px;
+		border-radius: 25% 50% 50% 25%;
+		background: blue;
+		}
+
+
+	[graph], [graph_node_handle], [graph_edge_anchor], [graph_node_input], [graph_node_output] {
+		pointer-events: auto;
+		}
+
+	[graph], [graph_node_handle], [graph_edge_anchor] {
+		cursor: grab;
+		}
+
+	[graph_edge_anchor][graph_moving] {
+		pointer-events: none;
+		}
+
+	}
+
