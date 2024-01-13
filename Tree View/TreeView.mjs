@@ -21,7 +21,7 @@ class TreeHandler {
   handleEvent( event ) {
     switch( event.type ) {
         
-      case "dblclick": {
+      case "click": {
         if( event.target.matches( ":is( .tree, .tree_branch ) > :scope.tree_leaf:first-child" ) ) {
           event.target.parentElement.classList.toggle( "tree_branch_closed" )
           break
@@ -29,7 +29,7 @@ class TreeHandler {
         break
         }
 
-      case "click": {
+      case "dblclick": {
         if( event.target.matches( ".tree_leaf" ) )
           event.target.focus()
         break

@@ -37,9 +37,9 @@
     place-content: start; place-items: stretch;
     width: 100%; height: min-content;
     gap: 4px;
-    --padding: 4px;
-    --padding-a: var(--padding);
-    --padding-b: var(--padding);
+    --padding-step: 8px;
+    --padding-a: var(--padding-step);
+    --padding-b: var(--padding-step);
     }
   
   .tree_branch {
@@ -47,12 +47,12 @@
     }
   
   .tree_branch.a {
-    --padding-a: calc( var(--padding-b) + 8px );
+    --padding-a: calc( var(--padding-b) + var(--padding-step) );
     --padding: var(--padding-a);
     }
   
   .tree_branch:not(.a) {
-    --padding-b: calc( var(--padding-a) + 8px );
+    --padding-b: calc( var(--padding-a) + var(--padding-step) );
     --padding: var(--padding-b);
     }
 
@@ -63,8 +63,10 @@
   .tree_leaf {
     flex: 0 0 auto; place-self: stretch;
     display: flex; flex-flow: row nowrap;
-    place-content: start; place-items: center;
-    width: 100%;
+    gap: 4px;
+    place-content: stretch; place-items: stretch;
+    width: 100%; 
+    height: auto; min-height: calc( 4px + 1em + 4px );
     pointer-events: auto;
     }
 
@@ -72,43 +74,48 @@
     background: #1111;
     }
 
-  .tree_leaf:first-child {
+  .tree_branch.a .tree_leaf:first-child {
+    --padding: calc( var(--padding-a) - var(--padding-step) );
+    }
+
+  .tree_branch:not(.a) .tree_leaf:first-child {
+    --padding: calc( var(--padding-b) - var(--padding-step) );
     }
   
   .tree_leaf_stem {
-    flex: 0 0 auto; place-self: start;
-    display: block;
-    height: 100%; 
-    padding-left: var(--padding);
+    flex: 0 0 auto; place-self: stretch;
+    display: flex; flex-flow: row nowrap;
+    height: auto; 
     --debug-background: blue;
     }
 
-  .tree_leaf_stem::after {
-    place-self: stretch;
-    content: "\00a0"; white-space: pre;
+  .tree_leaf_stem::before {
+    width: var(--padding); height: auto;
     display: block;
-    height: 100%;
-    border-left: 4px solid #1112;
-    border-bottom-left-radius: 4px;
-    padding-left: 4px;
+    content: "\00a0";
     }
 
-  .tree_leaf:hover .tree_leaf_stem::after {
-    border-left: 4px solid #1110;
+  .tree_leaf:first-child .tree_leaf_stem::after {
+    place-self: center;
+    display: block;
+    content: "▼";
+    font-size: 0.6em;
+    color: #1118;
+    }
+
+  .tree_branch_closed .tree_leaf .tree_leaf_stem::after {
+    content: "▶";
     }
 
   .tree > .tree_leaf:first-child .tree_leaf_stem::after {
-    content: "";
     display: none;
     }
   
   .tree_leaf:first-child .tree_leaf_stem {
-    padding-left: calc( var(--padding) - 8px );
     }
   
   .tree > .tree_leaf:first-child .tree_leaf_stem {
     --padding: 0px;
-    padding-left: 4px;
     }
   
   .tree_leaf_contents {
@@ -116,33 +123,15 @@
     }
 
   .tree_leaf:first-child .tree_leaf_contents {
-    font-weight: bold;
-    color: #111C;
+/*    font-weight: bold;*/
+/*    color: #111C;*/
     --debug-background: yellow;
     }
 
   .tree > .tree_leaf:first-child .tree_leaf_contents {
-    font-size: 1.2em;
+/*    font-size: 1.2em;*/
+    font-weight: bold;
     color: #111A;
-    }
-
-  .tree_leaf_toggle {
-    display: block;
-    padding: 4px;
-    border-radius: 6px;
-    }
-
-  .tree_leaf:hover .tree_leaf_toggle {
-    background: #1111;
-    }
-
-  .tree_leaf_toggle::before {
-    content: "⧨";"
-    }
-
-  :is( .tree, .tree_branch ).tree_branch_closed .tree_leaf_toggle::before {
-    content: "◭";
-    transform: scale(1.3);
     }
 
   }
