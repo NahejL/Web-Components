@@ -657,7 +657,9 @@ class GraphView {
 
 				for( let root of event.addedNodes ) {
 					for( let attribute of GraphView.globalyObservedAttributes ) {
-						for( let node of root.querySelectorAll( "[" + attribute + "]" ) ) {
+						let query = root.querySelectorAll( "[" + attribute + "]" )
+						console.log( query )
+						for( let node of query ) {
 
 							this.handleEvent({ type: "attributes", target: node, attributeName: attribute })
 
