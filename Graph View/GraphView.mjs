@@ -656,10 +656,10 @@ class GraphView {
 			case "childList": {
 
 				for( let root of event.addedNodes ) {
+					if( root.nodeType !== 1 )
+
 					for( let attribute of GraphView.globalyObservedAttributes ) {
-						console.log( root )
-						let query = root.querySelectorAll( "[" + attribute + "]" )
-						for( let node of query ) {
+						for( let node of root.querySelectorAll( "[" + attribute + "]" ) ) {
 
 							this.handleEvent({ type: "attributes", target: node, attributeName: attribute })
 
