@@ -593,6 +593,7 @@ class GraphView {
 				}
 
 			case "attributes": {
+				console.log( "attributes", event.target )
 				switch( event.attributeName ) {
 
 					case "graph_world": {
@@ -660,6 +661,9 @@ class GraphView {
 			case "childList": {
 
 				for( let root of event.addedNodes ) {
+
+					console.log( root )
+
 					if( root.nodeType !== 1 )
 						continue
 
