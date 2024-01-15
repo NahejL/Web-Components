@@ -377,8 +377,6 @@ class GraphView {
 
 	#createNode( element ) {
 
-		console.log( element )
-
 		element.style.setProperty( "--x", 0 )
 		element.style.setProperty( "--y", 0 )
 		this.#positionOfAny.set( element, { x: 0, y: 0 } )
@@ -593,7 +591,6 @@ class GraphView {
 				}
 
 			case "attributes": {
-				console.log( "attributes", event.target )
 				switch( event.attributeName ) {
 
 					case "graph_world": {
@@ -662,13 +659,17 @@ class GraphView {
 
 				for( let root of event.addedNodes ) {
 
-					console.log( root )
-
 					if( root.nodeType !== 1 )
 						continue
 
 					for( let attribute of GraphView.globalyObservedAttributes ) {
-						for( let node of root.querySelectorAll( "[" + attribute + "]" ) ) {
+
+						let nodes = Array.from( root.querySelectorAll( "[" + attribute + "]" ) )
+
+						if( root.matches( "[" + attribute + "]" ) )
+							nodes.push( root )
+
+						for( let node of nodes ) {
 
 							this.handleEvent({ type: "attributes", target: node, attributeName: attribute })
 
