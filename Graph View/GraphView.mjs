@@ -657,6 +657,7 @@ class GraphView {
 
 				for( let root of event.addedNodes ) {
 					if( root.nodeType !== 1 )
+						continue
 
 					for( let attribute of GraphView.globalyObservedAttributes ) {
 						for( let node of root.querySelectorAll( "[" + attribute + "]" ) ) {
