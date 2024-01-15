@@ -494,8 +494,6 @@ class GraphView {
 
 				for( let target of targets ) {
 
-					console.log( target )
-
 					let { x, y } = positions.get( target ) 
 
 					x += event.movementX
