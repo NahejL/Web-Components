@@ -377,6 +377,8 @@ class GraphView {
 
 	#createNode( element ) {
 
+		console.log( element )
+
 		element.style.setProperty( "--x", 0 )
 		element.style.setProperty( "--y", 0 )
 		this.#positionOfAny.set( element, { x: 0, y: 0 } )
